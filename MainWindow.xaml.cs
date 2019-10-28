@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Memory_Game
 {
@@ -24,6 +25,7 @@ namespace Memory_Game
         private const int NR_OF_ROWS = 4;
 
         Grid grid;
+        Grid highscores;
         bool isSet_ = false;
 
 
@@ -31,6 +33,29 @@ namespace Memory_Game
         {
             InitializeComponent();
             grid = new MainGrid(GameGrid);
+            highscores = new HighScores(HighscoreGrid);
+            labelTimer.Visibility = Visibility.Hidden;
+            labelTimer2.Visibility = Visibility.Hidden;
+        }
+
+        private void InitializeTimer()
+        {
+            labelTimer.Visibility = Visibility.Visible;
+            labelTimer2.Visibility = Visibility.Visible;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timerTicker;
+            timer.Start();
+
+        }
+
+        private int increment = 0;
+
+        private void timerTicker(object sender, EventArgs e)
+        {
+            increment++;
+
+            labelTimer2.Content = increment.ToString();
         }
 
         private void SinglePlayerClick(object sender, RoutedEventArgs e)
@@ -38,7 +63,9 @@ namespace Memory_Game
             if(isSet_ == false)
             {
                 grid = new MemoryGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, name.Text);
+                name.Visibility = Visibility.Hidden;
                 isSet_ = true;
+                InitializeTimer();
             } else
             {
                 isSet_ = true;
@@ -61,7 +88,14 @@ namespace Memory_Game
 
         private void HighScores(object sender, RoutedEventArgs e)
         {
-            grid = new HighScores(GameGrid);
+            if (isSet_ == false)
+            {
+                grid = new HighScores(GameGrid);      
+            }
+            else
+            {
+                isSet_ = true;
+            }
         }
     }
 }
