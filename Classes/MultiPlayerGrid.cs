@@ -20,8 +20,10 @@ namespace Memory_Game
         private int cols;
         private int rows;
         private int clicks = 0;
+
         private List<Image> cards = new List<Image>();
         private List<Image> finishedCards = new List<Image>();
+
         private string playerName1;
 
         public MultiPlayerGrid(Grid grid, int cols, int rows, string playerName1)

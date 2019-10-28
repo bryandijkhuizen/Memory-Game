@@ -97,13 +97,6 @@ namespace Memory_Game.Classes
 
             timer.init(TimerGrid);
 
-            DateTime now = DateTime.Now;
-
-            using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@"C:\Users\Public\TestFolder\scores.txt", true))
-            {
-                file.WriteLine("Game Initialized by: " + playerName1 + " on " + now);
-            }
 
 
         }
@@ -174,7 +167,7 @@ namespace Memory_Game.Classes
                     if (finishedCards.Count() == 16)
                     {
                         using (System.IO.StreamWriter file =
-                            new System.IO.StreamWriter(@"C:\Users\Public\TestFolder\scores.txt", true))
+                            new System.IO.StreamWriter("scores.txt", true))
                         {
                             timer.StopTimer();
                             file.WriteLine("Game Finished by: " + playerName1 + " In: " + timer.getTimer().ToString() + "s");

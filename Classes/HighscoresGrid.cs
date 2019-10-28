@@ -35,16 +35,20 @@ namespace Memory_Game
 
         private void LoadScores()
         {
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Public\TestFolder\scores.txt");
+            string[] lines = System.IO.File.ReadAllLines("scores.txt");
 
-            foreach (string line in lines)
-            {
                 Label label = new Label();
-                label.Content = line;
+                int index = lines.Length -1;
+                label.Content = lines[index];
                 Grid.SetColumn(label, 0);
                 Grid.SetRow(label, 1);
                 grid.Children.Add(label);
-            }
+
+
+
+                
+                    
+            
         }
     }
 }

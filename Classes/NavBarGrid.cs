@@ -68,6 +68,7 @@ namespace Memory_Game
             Button reset = new Button();
             reset.Content = "Reset";
             reset.FontSize = 42;
+            reset.Click += Reset;
             Grid.SetColumn(reset, 2);
             Grid.SetRow(reset, 0);
             grid.Children.Add(reset);
@@ -114,6 +115,14 @@ namespace Memory_Game
             {
                 isSet_ = true;
             }
+        }
+
+        private void Reset(object sender, System.EventArgs e)
+        {
+
+    
+
+
         }
 
     }
