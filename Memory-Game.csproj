@@ -63,16 +63,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Highscores.cs" />
+    <Compile Include="Classes\MainMenuGrid.cs" />
+    <Compile Include="Classes\MultiPlayerGrid.cs" />
+    <Compile Include="Classes\NavBarGrid.cs" />
+    <Compile Include="Classes\SinglePlayerGrid.cs" />
+    <Compile Include="Classes\HighscoresGrid.cs" />
+    <Compile Include="Classes\TimerGrid.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainGrid.cs" />
-    <Compile Include="MultiPlayer.cs" />
-    <Compile Include="MemoryGrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,5 +113,6 @@
   <ItemGroup>
     <Resource Include="Images\mystery_image.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

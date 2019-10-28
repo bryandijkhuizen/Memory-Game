@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Memory_Game"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920">
-    
-    <Grid>
+
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="400"/>
@@ -20,36 +20,19 @@
         <Grid Grid.Column="0" Grid.Row="1" x:Name="GameGrid">
 
         </Grid>
-        <Grid Grid.Column="0" Grid.Row="0">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            
-
-            <Button Content="Single Player" Click="SinglePlayerClick"/>
-            <Button Content="Multi Player" Grid.Column="1" Click="MultiPlayerClick"/>
-            <Button Content="Reset" Grid.Column="2"/>
-            <Button Content="HighScores" Grid.Column="3" Click="HighScores"/>
-            <TextBox Name="name" Grid.Row="1" Grid.Column="0" FontSize="42"></TextBox>
-            <Label Name="labelTimer" Content="Timer: " Grid.Row="1" Grid.Column="0" FontSize="50"></Label>
-            <Label Name="labelTimer2" Grid.Row="1" Grid.Column="0" FontSize="50" Margin="162,0,126,10"/>
+        
+        <Grid Grid.Column="0" Grid.Row="0" x:Name="NavBarGrid">
 
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1" x:Name="HighscoreGrid">
+
+        </Grid>
+
+        <Grid x:Name="TimerGrid" Grid.Row="0" Grid.Column="1">
             
         </Grid>
         
-        <Label Content="Highscores" FontSize="42" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Grid.RowSpan="2"/>
     </Grid>
 
 </Window>
