@@ -31,8 +31,8 @@ namespace Memory_Game
 
             grid = new MainMenuGrid(GameGrid);
             highscores = new HighScoresGrid(HighscoreGrid);
-            navbar = new NavBarGrid(NavBarGrid, GameGrid);
-            timer = new TimerGrid(TimerGrid);
+            navbar = new NavBarGrid(NavBarGrid, GameGrid, TimerGrid);
+
 
         }
 

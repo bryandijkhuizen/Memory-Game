@@ -22,14 +22,26 @@ namespace Memory_Game.Classes
 
         Label highscoresLabel = new Label();
 
-        public TimerGrid(Grid grid)
+        public TimerGrid()
         {
-            this.grid = grid;
-            LoadLabels();
-            InitializeTimer();
+            
         }
 
-        private void LoadLabels()
+        public void init(Grid grid)
+        {
+            this.grid = grid;
+            labelTimer.Visibility = Visibility.Visible;
+            labelTimer2.Visibility = Visibility.Visible;
+
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timerTicker;
+            timer.Start();
+            LoadLabels();
+        }
+
+
+
+        public void LoadLabels()
         {
            
             labelTimer.Content = "Timer: ";
@@ -42,27 +54,31 @@ namespace Memory_Game.Classes
 
             labelTimer.VerticalContentAlignment = VerticalAlignment.Bottom;
             labelTimer2.VerticalContentAlignment = VerticalAlignment.Bottom;
-            highscoresLabel.VerticalContentAlignment = VerticalAlignment.Top; 
+            highscoresLabel.VerticalContentAlignment = VerticalAlignment.Top;
+
+            labelTimer2.Margin = new Thickness(50);
 
             grid.Children.Add(labelTimer);
             grid.Children.Add(labelTimer2);
             grid.Children.Add(highscoresLabel);
         }
 
-        private void InitializeTimer()
-        {
-            labelTimer.Visibility = Visibility.Visible;
-            labelTimer2.Visibility = Visibility.Visible;
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timerTicker;
-            timer.Start();
+        DispatcherTimer timer = new DispatcherTimer();
 
+
+        public void StopTimer()
+        {
+            timer.Stop();
+        }
+
+        public int getTimer()
+        {
+            return increment;
         }
 
         private int increment = 0;
 
-        private void timerTicker(object sender, EventArgs e)
+        public void timerTicker(object sender, EventArgs e)
         {
             increment++;
 

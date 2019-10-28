@@ -12,3 +12,8 @@ C:\Users\dijkh\source\repos\Memory-Game\obj\Debug\Memory-Game.csproj.GenerateRes
 C:\Users\dijkh\source\repos\Memory-Game\obj\Debug\Memory-Game.exe
 C:\Users\dijkh\source\repos\Memory-Game\obj\Debug\Memory-Game.pdb
 C:\Users\dijkh\source\repos\Memory-Game\obj\Debug\Memory-Game.csprojAssemblyReference.cache
+C:\Users\dijkh\source\repos\Memory-Game\bin\Debug\CsvHelper.dll
+C:\Users\dijkh\source\repos\Memory-Game\bin\Debug\System.ValueTuple.dll
+C:\Users\dijkh\source\repos\Memory-Game\bin\Debug\CsvHelper.xml
+C:\Users\dijkh\source\repos\Memory-Game\bin\Debug\System.ValueTuple.xml
+C:\Users\dijkh\source\repos\Memory-Game\obj\Debug\Memory-Game.csproj.CopyComplete

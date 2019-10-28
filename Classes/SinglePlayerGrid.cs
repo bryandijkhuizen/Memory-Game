@@ -14,23 +14,69 @@ namespace Memory_Game.Classes
     public class SinglePlayerGrid : Grid
     {
         private Grid grid;
+        private Grid TimerGrid;
+
         private int cols;
         private int rows;
         private int clicks = 0;
+
         private List<Image> cards = new List<Image>();
         private List<Image> finishedCards = new List<Image>();
+
         private string playerName1;
         public DateTime InitDate { get; set; }
 
-        public SinglePlayerGrid(Grid grid, int cols, int rows, string playerName1)
+        TimerGrid timer = new TimerGrid();
+
+        public SinglePlayerGrid(Grid grid, int cols, int rows, string playerName1, Grid TimerGrid)
         {
             this.grid = grid;
             this.cols = cols;
             this.rows = rows;
+            this.TimerGrid = TimerGrid;
             this.playerName1 = playerName1;
+
             InitializeGameGrid(cols, rows);
             AddImages();
+            AddButtons();
 
+        }
+
+        private void AddButtons()
+        {
+            Button button = new Button();
+            Button Loadbutton = new Button();
+
+            button.Content = "Save";
+            button.Click += SaveToCSV;
+
+            Loadbutton.Content = "LoadGame";
+            //Loadbutton.Click += LoadFromCSV;
+
+            button.Height = 40;
+            button.Width = 200;
+
+            Loadbutton.Height = 40;
+            Loadbutton.Width = 200;
+
+            Grid.SetRow(button, 4);
+            Grid.SetRow(Loadbutton, 5);
+
+            grid.Children.Add(button);
+            grid.Children.Add(Loadbutton);
+        }
+
+        public void SaveToCSV(object sender, System.EventArgs e)
+        {
+            ListConverter lc = new ListConverter();
+            lc.Convert(finishedCards);
+        }
+
+        public void LoadFromCSV(object sender, System.EventArgs e)
+        {
+            ListConverter lc = new ListConverter();
+            Console.WriteLine(lc.Import());
+            
         }
 
 
@@ -45,6 +91,11 @@ namespace Memory_Game.Classes
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
+
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+
+            timer.init(TimerGrid);
 
             DateTime now = DateTime.Now;
 
@@ -99,6 +150,7 @@ namespace Memory_Game.Classes
             return images;
         }
 
+
         private void cardClick(object sender, MouseButtonEventArgs e)
         {
             Image card = (Image)sender;
@@ -118,12 +170,15 @@ namespace Memory_Game.Classes
                     MessageBox.Show("GOED");
                     finishedCards.Add(cards[0]);
                     finishedCards.Add(cards[1]);
+                    
                     if (finishedCards.Count() == 16)
                     {
                         using (System.IO.StreamWriter file =
                             new System.IO.StreamWriter(@"C:\Users\Public\TestFolder\scores.txt", true))
                         {
-                            file.WriteLine("Game Finished by: " + playerName1);
+                            timer.StopTimer();
+                            file.WriteLine("Game Finished by: " + playerName1 + " In: " + timer.getTimer().ToString() + "s");
+                            
                         }
 
                         if (MessageBox.Show("Play another game?", "Confirm") == MessageBoxResult.Yes)
@@ -155,6 +210,8 @@ namespace Memory_Game.Classes
 
 
         }
+
+
 
     }
 }

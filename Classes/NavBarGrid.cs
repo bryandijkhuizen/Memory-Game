@@ -16,15 +16,19 @@ namespace Memory_Game
     {
         private Grid grid;
         private Grid GameGrid;
+        private Grid TimerGrid;
+
         TextBox enterPlayerName = new TextBox();
         private const int NR_OF_COLUMNS = 4;
         private const int NR_OF_ROWS = 4;
         bool isSet_ = false;
+        TimerGrid timer = new TimerGrid();
 
-        public NavBarGrid(Grid grid, Grid GameGrid)
+        public NavBarGrid(Grid grid, Grid GameGrid, Grid TimerGrid)
         {
             this.grid = grid;
             this.GameGrid = GameGrid;
+            this.TimerGrid = TimerGrid;
 
             LoadGrid();
             LoadButtons();
@@ -41,6 +45,7 @@ namespace Memory_Game
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
+
         }
 
         private void LoadButtons()
@@ -68,6 +73,8 @@ namespace Memory_Game
             grid.Children.Add(reset);
 
 
+
+
         }
 
         private void LoadTextBoxes()
@@ -82,7 +89,7 @@ namespace Memory_Game
         {
             if (isSet_ == false)
             {
-                GameGrid = new SinglePlayerGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, enterPlayerName.Text);
+                GameGrid = new SinglePlayerGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, enterPlayerName.Text,TimerGrid);
                 enterPlayerName.Visibility = Visibility.Hidden;
                 isSet_ = true;
             }
@@ -92,6 +99,8 @@ namespace Memory_Game
             }
             
         }
+
+  
 
         private void MultiPlayerClick(object sender, System.EventArgs e)
         {

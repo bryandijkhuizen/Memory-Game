@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Memory_Game.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Memory_Game
     public class MultiPlayerGrid : Grid
     {
         private Grid grid;
+
         private int cols;
         private int rows;
         private int clicks = 0;
@@ -30,6 +32,8 @@ namespace Memory_Game
             this.playerName1 = playerName1;
             InitializeGameGrid(cols, rows);
             AddImages();
+
+
         }
 
         private void InitializeGameGrid(int cols, int rows)
