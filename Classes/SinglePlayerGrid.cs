@@ -46,12 +46,18 @@ namespace Memory_Game.Classes
         {
             Button button = new Button();
             Button Loadbutton = new Button();
+            Button resetButton = new Button();
 
             button.Content = "Save";
             button.Click += SaveToCSV;
 
+            resetButton.Content = "Reset";
+            resetButton.Click += Reset;
+
+
             Loadbutton.Content = "LoadGame";
             //Loadbutton.Click += LoadFromCSV;
+
 
             button.Height = 40;
             button.Width = 200;
@@ -59,11 +65,23 @@ namespace Memory_Game.Classes
             Loadbutton.Height = 40;
             Loadbutton.Width = 200;
 
+            resetButton.Height = 40;
+            resetButton.Width = 200;
+
             Grid.SetRow(button, 4);
             Grid.SetRow(Loadbutton, 5);
+            Grid.SetRow(resetButton, 6);
 
+            grid.Children.Add(resetButton);
             grid.Children.Add(button);
             grid.Children.Add(Loadbutton);
+        }
+
+        private void Reset(object sender, RoutedEventArgs e)
+        {
+            AddImages();
+            timer.ResetTimer();
+
         }
 
         public void SaveToCSV(object sender, System.EventArgs e)
@@ -94,6 +112,7 @@ namespace Memory_Game.Classes
 
             grid.RowDefinitions.Add(new RowDefinition());
             grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
 
             timer.init(TimerGrid);
 
@@ -112,6 +131,7 @@ namespace Memory_Game.Classes
                     backgroundImage.Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
                     backgroundImage.Tag = images.First();
                     images.RemoveAt(0);
+                    backgroundImage.Margin = new Thickness(5);
                     backgroundImage.MouseDown += new MouseButtonEventHandler(cardClick);
                     Grid.SetColumn(backgroundImage, column);
                     Grid.SetRow(backgroundImage, row);
@@ -157,10 +177,10 @@ namespace Memory_Game.Classes
             if (clicks == 2)
             {
                 clicks = 0;
-
+                //reset in singleplayclass
                 if (cards[0].Source.ToString() == cards[1].Source.ToString())
                 {
-                    MessageBox.Show("GOED");
+                    //MessageBox.Show("GOED");
                     finishedCards.Add(cards[0]);
                     finishedCards.Add(cards[1]);
                     
@@ -170,24 +190,15 @@ namespace Memory_Game.Classes
                             new System.IO.StreamWriter("scores.txt", true))
                         {
                             timer.StopTimer();
-                            file.WriteLine("Game Finished by: " + playerName1 + " In: " + timer.getTimer().ToString() + "s");
+                            file.WriteLine("Game Finished by: " + playerName1 + (120-timer.getTimer()).ToString() + " pts");
                             
                         }
-
-                        if (MessageBox.Show("Play another game?", "Confirm") == MessageBoxResult.Yes)
-                        {
                             for (int i = 0; i < finishedCards.Count(); i++)
                             {
                                 finishedCards[i].Source = back;
+                                Reset();
                             }
-                        }
-                        else
-                        {
-                            System.Environment.Exit(0);
-                        }
-
-
-
+                       
                     }
                     cards.Clear();
                 }
@@ -196,15 +207,18 @@ namespace Memory_Game.Classes
                     cards[0].Source = back;
                     cards[1].Source = back;
 
-                    MessageBox.Show("FOUT");
+                    //MessageBox.Show("FOUT");
                     cards.Clear();
                 }
             }
-
+            System.Threading.Thread.Sleep(250);
 
         }
 
-
-
+        private void Reset()
+        {
+            AddImages();
+            timer.ResetTimer();
+        }
     }
 }

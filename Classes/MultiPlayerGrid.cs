@@ -31,6 +31,7 @@ namespace Memory_Game
             this.rows = rows;
             this.player1 = new Player(0, playerName1);
             this.player2 = new Player(0, playerName2);
+
             InitializeGameGrid(cols, rows);
             AddImages();
             ShowScores();
@@ -139,7 +140,7 @@ namespace Memory_Game
                     if (cards[0].Source.ToString() == cards[1].Source.ToString())
                     {
                         //Zo ja, dan wordt dit goedgerekend.
-                        MessageBox.Show("GOED");
+                        //MessageBox.Show("GOED");
                         //De 2 goedgekozen kaarten blijven omgedraaid.
                         finishedCards.Add(cards[0]);
                         finishedCards.Add(cards[1]);
@@ -156,7 +157,7 @@ namespace Memory_Game
                         //Zo niet. Dan worden beide kaarten weer omgedraaid en is Player 2 aan de beurt
                         cards[0].Source = back;
                         cards[1].Source = back;
-                        MessageBox.Show("FOUT");
+                        //MessageBox.Show("FOUT");
                         turn++;
                         cards.Clear();
 

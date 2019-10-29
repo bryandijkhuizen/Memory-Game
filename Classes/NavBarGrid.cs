@@ -46,7 +46,6 @@ namespace Memory_Game
 
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
 
         }
 
@@ -67,17 +66,6 @@ namespace Memory_Game
             Grid.SetColumn(multi, 1);
             Grid.SetRow(multi, 0);
             grid.Children.Add(multi);
-
-            Button reset = new Button();
-            reset.Content = "Reset";
-            reset.FontSize = 42;
-            reset.Click += Reset;
-            Grid.SetColumn(reset, 2);
-            Grid.SetRow(reset, 0);
-            grid.Children.Add(reset);
-
-
-
 
         }
 
@@ -100,6 +88,7 @@ namespace Memory_Game
             {
                 GameGrid = new SinglePlayerGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, enterPlayerName.Text,TimerGrid);
                 enterPlayerName.Visibility = Visibility.Hidden;
+                enterPlayerName2.Visibility = Visibility.Hidden;
                 isSet_ = true;
             }
             else
@@ -108,8 +97,6 @@ namespace Memory_Game
             }
             
         }
-
-  
 
         private void MultiPlayerClick(object sender, System.EventArgs e)
         {
@@ -124,14 +111,6 @@ namespace Memory_Game
             {
                 isSet_ = true;
             }
-        }
-
-        private void Reset(object sender, System.EventArgs e)
-        {
-
-    
-
-
         }
 
     }

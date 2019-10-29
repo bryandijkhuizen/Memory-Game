@@ -76,11 +76,16 @@ namespace Memory_Game.Classes
             return increment;
         }
 
-        private int increment = 0;
+        public void ResetTimer()
+        {
+            increment = 0;
+        }
+
+        private int increment = 120;
 
         public void timerTicker(object sender, EventArgs e)
         {
-            increment++;
+            increment--;
 
             labelTimer2.Content = increment.ToString();
         }
