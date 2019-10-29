@@ -24,7 +24,7 @@ namespace Memory_Game.Classes
         public void Convert(List<Image> l)
         {
             this.l = l;
-            using (StreamWriter sw = File.CreateText("list.csv"))
+            using (StreamWriter sw = File.CreateText("game.sav"))
             {
                 for (int i = 0; i < l.Count(); i++)
                 {
@@ -32,7 +32,7 @@ namespace Memory_Game.Classes
                 }
             }
         }
-
+            
         public List<Image> Import()
         {
             string path = "list.csv";

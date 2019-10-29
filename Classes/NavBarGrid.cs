@@ -19,6 +19,8 @@ namespace Memory_Game
         private Grid TimerGrid;
 
         TextBox enterPlayerName = new TextBox();
+        TextBox enterPlayerName2 = new TextBox();
+
         private const int NR_OF_COLUMNS = 4;
         private const int NR_OF_ROWS = 4;
         bool isSet_ = false;
@@ -61,6 +63,7 @@ namespace Memory_Game
             Button multi = new Button();
             multi.Content = "MultiPlayer";
             multi.FontSize = 42;
+            multi.Click += MultiPlayerClick;
             Grid.SetColumn(multi, 1);
             Grid.SetRow(multi, 0);
             grid.Children.Add(multi);
@@ -84,6 +87,11 @@ namespace Memory_Game
             Grid.SetColumn(enterPlayerName, 0);
             Grid.SetRow(enterPlayerName, 1);
             grid.Children.Add(enterPlayerName);
+
+            enterPlayerName2.FontSize = 42;
+            Grid.SetColumn(enterPlayerName2, 1);
+            Grid.SetRow(enterPlayerName2, 1);
+            grid.Children.Add(enterPlayerName2);
         }
 
         private void SinglePlayerClick(object sender, System.EventArgs e)
@@ -107,8 +115,9 @@ namespace Memory_Game
         {
             if (isSet_ == false)
             {
-                GameGrid = new MultiPlayerGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, enterPlayerName.Text);
+                GameGrid = new MultiPlayerGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, enterPlayerName.Text, enterPlayerName2.Text);
                 enterPlayerName.Visibility = Visibility.Hidden;
+                enterPlayerName2.Visibility = Visibility.Hidden;
                 isSet_ = true;
             }
             else

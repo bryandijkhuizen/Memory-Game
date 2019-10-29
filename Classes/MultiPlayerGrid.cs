@@ -16,26 +16,24 @@ namespace Memory_Game
     public class MultiPlayerGrid : Grid
     {
         private Grid grid;
-
         private int cols;
         private int rows;
         private int clicks = 0;
-
         private List<Image> cards = new List<Image>();
         private List<Image> finishedCards = new List<Image>();
+        Player player1;
+        Player player2;
 
-        private string playerName1;
-
-        public MultiPlayerGrid(Grid grid, int cols, int rows, string playerName1)
+        public MultiPlayerGrid(Grid grid, int cols, int rows, string playerName1, string playerName2)
         {
             this.grid = grid;
             this.cols = cols;
             this.rows = rows;
-            this.playerName1 = playerName1;
+            this.player1 = new Player(0, playerName1);
+            this.player2 = new Player(0, playerName2);
             InitializeGameGrid(cols, rows);
             AddImages();
-
-
+            ShowScores();
         }
 
         private void InitializeGameGrid(int cols, int rows)
@@ -50,6 +48,29 @@ namespace Memory_Game
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
+
+            grid.RowDefinitions.Add(new RowDefinition());
+            grid.RowDefinitions.Add(new RowDefinition());
+        }
+
+        Label score1 = new Label();
+        Label score2 = new Label();
+
+        private void UpdateScores()
+        {
+            score1.Content = player1.GetNaam() + ": " + (player1.GetScore().ToString());
+            score2.Content = player2.GetNaam() + ": " + (player2.GetScore().ToString());
+        }
+
+        private void ShowScores()
+        {
+            UpdateScores();
+            
+            Grid.SetRow(score1, 4);
+            Grid.SetRow(score2, 5);
+
+            grid.Children.Add(score1);
+            grid.Children.Add(score2);
         }
 
         private void AddImages()
@@ -94,6 +115,8 @@ namespace Memory_Game
             return images;
         }
 
+        int turn = 0; // Deze zal 0 zijn als player1 speelt en 1 zijn als player2 speelt
+
         private void cardClick(object sender, MouseButtonEventArgs e)
         {
             Image card = (Image)sender;
@@ -103,25 +126,98 @@ namespace Memory_Game
             clicks++;
             card.Source = front;
             cards.Add(card);
-
-            if (clicks == 2)
+            
+            //Als speler 1 aan de buurt is dan wordt er gekeken of deze punten krijgt.
+            if (turn == 0)  //player 1 is dan aan de beurt
             {
-                clicks = 0;
-
-                if (cards[0].Source.ToString() == cards[1].Source.ToString())
+                //Als er 2 kaarten zijn aangeklikt
+                if (clicks == 2)
                 {
-                    MessageBox.Show("GOED");
-                    finishedCards.Add(cards[0]);
-                    finishedCards.Add(cards[1]);
-                    cards.Clear();
+                    //Dan wordt de teller van kliks weer op 1 gezet
+                    clicks = 0;
+                    //Zijn de kaarten gelijk aan elkaar?
+                    if (cards[0].Source.ToString() == cards[1].Source.ToString())
+                    {
+                        //Zo ja, dan wordt dit goedgerekend.
+                        MessageBox.Show("GOED");
+                        //De 2 goedgekozen kaarten blijven omgedraaid.
+                        finishedCards.Add(cards[0]);
+                        finishedCards.Add(cards[1]);
+                        //Player 1 krijgt 1 punt voor de goedgekozen kaarten.
+                        player1.AddPoint();
+                        UpdateScores();
+                        //Player 1 krijgt nogmaals de kans om 2 kaarten te kiezen.
+                        turn = 0;
+                        //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                        cards.Clear();
+                    }
+                    else
+                    {
+                        //Zo niet. Dan worden beide kaarten weer omgedraaid en is Player 2 aan de beurt
+                        cards[0].Source = back;
+                        cards[1].Source = back;
+                        MessageBox.Show("FOUT");
+                        turn++;
+                        cards.Clear();
+
+                    }
+                }
+                //Als speler 1 aan de buurt is dan wordt er gekeken of deze punten krijgt.
+            }
+            
+            if (turn == 1)  //player 2 is dan aan de beurt
+            {
+                //Als er 2 kaarten zijn aangeklikt
+                if (clicks == 2)
+                {
+                    //Dan wordt de teller van kliks weer op 1 gezet
+                    clicks = 0;
+                    //Zijn de kaarten gelijk aan elkaar?
+                    if (cards[0].Source.ToString() == cards[1].Source.ToString())
+                    {
+                        //Zo ja, dan wordt dit goedgerekend.
+                        MessageBox.Show("GOED");
+                        //De 2 goedgekozen kaarten blijven omgedraaid.
+                        finishedCards.Add(cards[0]);
+                        finishedCards.Add(cards[1]);
+                        //Player 2 krijgt 1 punt voor de goedgekozen kaarten.
+                        player2.AddPoint();
+                        UpdateScores();
+                        //Player 2 krijgt nogmaals de kans om 2 kaarten te kiezen.
+                        turn = 0;
+                        //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                        cards.Clear();
+                    }
+                    else
+                    {
+                        //Zo niet. Dan worden beide kaarten weer omgedraaid en is Player 2 aan de beurt
+                        cards[0].Source = back;
+                        cards[1].Source = back;
+                        MessageBox.Show("FOUT");
+                        turn--;
+                        Console.WriteLine("Turn -");
+                        cards.Clear();
+
+                    }
+                }
+            }
+            
+
+
+            //Als Player 1 of Player 2 een score hebben gehaald.
+            if (player1.GetScore() == 4 || player2.GetScore() == 4)
+            {
+                if (player1.GetScore() == 4)
+                {
+                    //spelers krijgen dan de melding met wie er gewonnen heeft.
+                    MessageBox.Show(player1.GetNaam() + "heeft gewonnen :D");
                 }
                 else
                 {
-                    cards[0].Source = back;
-                    cards[1].Source = back;
-                    MessageBox.Show("FOUT");
-                    cards.Clear();
+                    //spelers krijgen dan de melding met wie er gewonnen heeft.
+                    MessageBox.Show(player2.GetNaam() + "heeft gewonnen :D");
                 }
+
             }
 
 
@@ -129,5 +225,11 @@ namespace Memory_Game
 
 
 
+
+
     }
+
+
+
+
 }

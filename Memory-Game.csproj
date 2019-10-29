@@ -76,6 +76,7 @@
     <Compile Include="Classes\MainMenuGrid.cs" />
     <Compile Include="Classes\MultiPlayerGrid.cs" />
     <Compile Include="Classes\NavBarGrid.cs" />
+    <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\SinglePlayerGrid.cs" />
     <Compile Include="Classes\HighscoresGrid.cs" />
     <Compile Include="Classes\TimerGrid.cs" />
