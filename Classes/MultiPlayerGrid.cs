@@ -102,6 +102,7 @@ namespace Memory_Game
                 int imageNumber = i % 8 + 1;
                 ImageSource source = new BitmapImage(new Uri("Images/" + imageNumber + ".jpg", UriKind.Relative));
                 images.Add(source);
+                
             }
 
             Random random = new Random();
