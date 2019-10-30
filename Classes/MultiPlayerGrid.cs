@@ -123,7 +123,6 @@ namespace Memory_Game
             AddImages();
             player1.ResetScores();
             player2.ResetScores();
-            UpdateScores();
         }
 
         private void cardClick(object sender, MouseButtonEventArgs e)
@@ -162,13 +161,19 @@ namespace Memory_Game
                     }
                     else
                     {
-                        //Zo niet. Dan worden beide kaarten weer omgedraaid en is Player 2 aan de beurt
-                        cards[0].Source = back;
-                        cards[1].Source = back;
-                        //MessageBox.Show("FOUT");
                         turn++;
-                        cards.Clear();
+                        cards[1].Source = front;
 
+                        DispatcherTimer dt = new DispatcherTimer();
+
+                        dt.Tick += (sender2, args) => {
+                            dt.Stop();
+                            cards[0].Source = back;
+                            cards[1].Source = back;
+                            cards.Clear();
+                        };
+                        dt.Interval = TimeSpan.FromSeconds(1);
+                        dt.Start();
                     }
                 }
                 //Als speler 1 aan de buurt is dan wordt er gekeken of deze punten krijgt.
@@ -197,12 +202,19 @@ namespace Memory_Game
                     }
                     else
                     {
-                        //Zo niet. Dan worden beide kaarten weer omgedraaid en is Player 2 aan de beurt
-                        cards[0].Source = back;
-                        cards[1].Source = back;
                         turn--;
-                        cards.Clear();
+                        cards[1].Source = front;
 
+                        DispatcherTimer dt = new DispatcherTimer();
+
+                        dt.Tick += (sender2, args) => {
+                            dt.Stop();
+                            cards[0].Source = back;
+                            cards[1].Source = back;
+                            cards.Clear();
+                        };
+                        dt.Interval = TimeSpan.FromSeconds(1);
+                        dt.Start();
                     }
                 }
             }
@@ -232,21 +244,6 @@ namespace Memory_Game
             }
 
 
-            ////Als Player 1 of Player 2 een score hebben gehaald.
-            //if (player1.GetScore() == 4 || player2.GetScore() == 4)
-            //{
-            //    if (player1.GetScore() == 4)
-            //    {
-            //        //spelers krijgen dan de melding met wie er gewonnen heeft.
-                    
-            //    }
-            //    else
-            //    {
-            //        //spelers krijgen dan de melding met wie er gewonnen heeft.
-                   
-            //    }
-
-            //}
 
 
         }

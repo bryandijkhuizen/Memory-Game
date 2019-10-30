@@ -217,19 +217,32 @@ namespace Memory_Game.Classes
                 }
                 else
                 {
-                    
                     cards[1].Source = front;
 
-                    cards[0].Source = back;
-                    cards[1].Source = back;
+                    DispatcherTimer dt = new DispatcherTimer();
 
-                    cards.Clear();
+                    dt.Tick += (sender2, args) => {
+                        dt.Stop();
+                        cards[0].Source = back;
+                        cards[1].Source = back;
+                        cards.Clear();
+                    };
+                    dt.Interval = TimeSpan.FromSeconds(1);
+                    dt.Start();
+
+                    
+
+                    //MessageBox.Show(" ");
+
+                   
+
+                    
                 }
             }
 
         }
 
-  
+
 
         private void Reset()
         {
