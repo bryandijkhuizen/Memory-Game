@@ -166,14 +166,16 @@ namespace Memory_Game
 
                         DispatcherTimer dt = new DispatcherTimer();
 
+                        dt.Interval = TimeSpan.FromSeconds(1);
+                        dt.Start();
+
                         dt.Tick += (sender2, args) => {
                             dt.Stop();
                             cards[0].Source = back;
                             cards[1].Source = back;
                             cards.Clear();
                         };
-                        dt.Interval = TimeSpan.FromSeconds(1);
-                        dt.Start();
+                        
                     }
                 }
                 //Als speler 1 aan de buurt is dan wordt er gekeken of deze punten krijgt.
@@ -207,14 +209,15 @@ namespace Memory_Game
 
                         DispatcherTimer dt = new DispatcherTimer();
 
+                        dt.Interval = TimeSpan.FromSeconds(1);
+                        dt.Start();
+
                         dt.Tick += (sender2, args) => {
                             dt.Stop();
                             cards[0].Source = back;
                             cards[1].Source = back;
                             cards.Clear();
                         };
-                        dt.Interval = TimeSpan.FromSeconds(1);
-                        dt.Start();
                     }
                 }
             }

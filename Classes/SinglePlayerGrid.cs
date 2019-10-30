@@ -221,14 +221,16 @@ namespace Memory_Game.Classes
 
                     DispatcherTimer dt = new DispatcherTimer();
 
+                    dt.Interval = TimeSpan.FromSeconds(1);
+                    dt.Start();
+
                     dt.Tick += (sender2, args) => {
                         dt.Stop();
                         cards[0].Source = back;
                         cards[1].Source = back;
                         cards.Clear();
                     };
-                    dt.Interval = TimeSpan.FromSeconds(1);
-                    dt.Start();
+                 
 
                     
 
