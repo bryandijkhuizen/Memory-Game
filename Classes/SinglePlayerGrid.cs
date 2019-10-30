@@ -250,6 +250,7 @@ namespace Memory_Game.Classes
         {
             AddImages();
             timer.ResetTimer();
+            timer.start();
         }
     }
 }
