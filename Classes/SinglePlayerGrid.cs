@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Memory_Game.Classes
 {
@@ -15,6 +16,9 @@ namespace Memory_Game.Classes
     {
         private Grid grid;
         private Grid TimerGrid;
+
+        private Dictionary<string, int> scores = new Dictionary<string, int>();
+
 
         private int cols;
         private int rows;
@@ -186,12 +190,21 @@ namespace Memory_Game.Classes
                     
                     if (finishedCards.Count() == 16)
                     {
-                        using (System.IO.StreamWriter file =
-                            new System.IO.StreamWriter("scores.txt", true))
                         {
                             timer.StopTimer();
-                            file.WriteLine("Game Finished by: " + playerName1 + (120-timer.getTimer()).ToString() + " pts");
-                            
+                            int score = (timer.getTimer());
+
+                            scores.Add(playerName1, score);
+                            String csv = String.Join(
+                            Environment.NewLine,
+                            scores.Select(d => $"{d.Key};{d.Value};"));
+
+                            using (System.IO.StreamWriter file =
+                                new System.IO.StreamWriter("scores.csv", true))
+                            {
+                                file.WriteLine(csv);
+                            }
+
                         }
                             for (int i = 0; i < finishedCards.Count(); i++)
                             {
@@ -204,16 +217,19 @@ namespace Memory_Game.Classes
                 }
                 else
                 {
+                    
+                    cards[1].Source = front;
+
                     cards[0].Source = back;
                     cards[1].Source = back;
 
-                    //MessageBox.Show("FOUT");
                     cards.Clear();
                 }
             }
-            System.Threading.Thread.Sleep(250);
 
         }
+
+  
 
         private void Reset()
         {

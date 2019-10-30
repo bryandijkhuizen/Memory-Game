@@ -118,6 +118,14 @@ namespace Memory_Game
 
         int turn = 0; // Deze zal 0 zijn als player1 speelt en 1 zijn als player2 speelt
 
+        private void Reset()
+        {
+            AddImages();
+            player1.ResetScores();
+            player2.ResetScores();
+            UpdateScores();
+        }
+
         private void cardClick(object sender, MouseButtonEventArgs e)
         {
             Image card = (Image)sender;
@@ -176,8 +184,6 @@ namespace Memory_Game
                     //Zijn de kaarten gelijk aan elkaar?
                     if (cards[0].Source.ToString() == cards[1].Source.ToString())
                     {
-                        //Zo ja, dan wordt dit goedgerekend.
-                        MessageBox.Show("GOED");
                         //De 2 goedgekozen kaarten blijven omgedraaid.
                         finishedCards.Add(cards[0]);
                         finishedCards.Add(cards[1]);
@@ -194,9 +200,7 @@ namespace Memory_Game
                         //Zo niet. Dan worden beide kaarten weer omgedraaid en is Player 2 aan de beurt
                         cards[0].Source = back;
                         cards[1].Source = back;
-                        MessageBox.Show("FOUT");
                         turn--;
-                        Console.WriteLine("Turn -");
                         cards.Clear();
 
                     }
@@ -204,22 +208,45 @@ namespace Memory_Game
             }
             
 
-
-            //Als Player 1 of Player 2 een score hebben gehaald.
-            if (player1.GetScore() == 4 || player2.GetScore() == 4)
+            if(finishedCards.Count() == 16)
             {
-                if (player1.GetScore() == 4)
+                int score1 = player1.GetScore();
+                int score2 = player2.GetScore();
+
+                if(score1 > score2)
                 {
-                    //spelers krijgen dan de melding met wie er gewonnen heeft.
-                    MessageBox.Show(player1.GetNaam() + "heeft gewonnen :D");
-                }
-                else
-                {
-                    //spelers krijgen dan de melding met wie er gewonnen heeft.
-                    MessageBox.Show(player2.GetNaam() + "heeft gewonnen :D");
+                    MessageBox.Show(player1.GetNaam() + " heeft gewonnen :D");
                 }
 
+                if(score2 > score1)
+                {
+                    MessageBox.Show(player2.GetNaam() + " heeft gewonnen :D");
+                }
+
+                if(score1 == score2)
+                {
+                    MessageBox.Show("Gelijkspel!");
+                }
+
+                Reset();
             }
+
+
+            ////Als Player 1 of Player 2 een score hebben gehaald.
+            //if (player1.GetScore() == 4 || player2.GetScore() == 4)
+            //{
+            //    if (player1.GetScore() == 4)
+            //    {
+            //        //spelers krijgen dan de melding met wie er gewonnen heeft.
+                    
+            //    }
+            //    else
+            //    {
+            //        //spelers krijgen dan de melding met wie er gewonnen heeft.
+                   
+            //    }
+
+            //}
 
 
         }

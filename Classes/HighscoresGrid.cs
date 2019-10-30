@@ -13,6 +13,7 @@ namespace Memory_Game
 {
     public class HighScoresGrid : Grid
     {
+        private Dictionary<string, int> ScoresDict = new Dictionary<string, int>();
         private Grid grid;
 
         public HighScoresGrid(Grid grid)
@@ -35,20 +36,51 @@ namespace Memory_Game
 
         private void LoadScores()
         {
-            string[] lines = System.IO.File.ReadAllLines("scores.txt");
+            string[] lines = System.IO.File.ReadAllLines("scores.csv");
 
-                Label label = new Label();
-                int index = lines.Length -1;
-                label.Content = lines[index];
-                Grid.SetColumn(label, 0);
-                Grid.SetRow(label, 1);
-                grid.Children.Add(label);
-
-
-
-                
-                    
+            ListBox listbox = new ListBox();
             
+                
+            foreach(string score in lines)
+            {
+                string[] scores = score.Split(';');
+
+                if (ScoresDict.ContainsKey(scores[0]))
+                {
+                    if (ScoresDict[scores[0]] > Convert.ToInt32(scores[1]))
+                    {
+
+                    } else
+                    {
+                        ScoresDict.Remove(scores[0]);
+                        ScoresDict.Add(scores[0], Convert.ToInt32(scores[1]));
+                    }
+                } else
+                {
+                    ScoresDict.Add(scores[0], Convert.ToInt32(scores[1]));
+                }
+
+            }
+
+           var highscores = from pair in ScoresDict
+                            orderby pair.Value descending
+                            select pair;
+
+
+            foreach (KeyValuePair<string, int> pair in highscores)
+            {
+                listbox.Items.Add(pair.Key + ": " + pair.Value);
+
+            }
+
+            Grid.SetColumn(listbox, 0);
+            Grid.SetRow(listbox, 1);
+            grid.Children.Add(listbox);
+
+
+
+
+
         }
     }
 }

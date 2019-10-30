@@ -28,7 +28,7 @@ namespace Memory_Game.Classes
             {
                 for (int i = 0; i < l.Count(); i++)
                 {
-                    sw.WriteLine(l[i].Source);
+                    sw.WriteLine(l[i].Source.ToString()); 
                 }
             }
         }

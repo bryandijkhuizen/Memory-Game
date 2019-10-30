@@ -23,7 +23,7 @@ namespace Memory_Game
     public partial class MainWindow : Window
     {
 
-        Grid grid, highscores, navbar, timer;
+        Grid grid, highscores, navbar;
 
         public MainWindow()
         {

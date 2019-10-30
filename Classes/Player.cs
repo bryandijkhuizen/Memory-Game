@@ -30,5 +30,10 @@ namespace Memory_Game.Classes
         {
             score += 1;
         }
+
+        public void ResetScores()
+        {
+            score = 0;
+        }
     }
 }

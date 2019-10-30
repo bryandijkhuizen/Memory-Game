@@ -20,11 +20,14 @@ namespace Memory_Game.Classes
         Label labelTimer = new Label();
         Label labelTimer2 = new Label();
 
-        Label highscoresLabel = new Label();
-
         public TimerGrid()
         {
             
+        }
+
+        public void start()
+        {
+            timer.Start();
         }
 
         public void init(Grid grid)
@@ -46,21 +49,20 @@ namespace Memory_Game.Classes
            
             labelTimer.Content = "Timer: ";
             labelTimer2.Content = increment.ToString();
-            highscoresLabel.Content = "Highscores";
+
 
             labelTimer.FontSize = 42;
             labelTimer2.FontSize = 42;
-            highscoresLabel.FontSize = 42;
+
 
             labelTimer.VerticalContentAlignment = VerticalAlignment.Bottom;
             labelTimer2.VerticalContentAlignment = VerticalAlignment.Bottom;
-            highscoresLabel.VerticalContentAlignment = VerticalAlignment.Top;
 
             labelTimer2.Margin = new Thickness(50);
 
             grid.Children.Add(labelTimer);
             grid.Children.Add(labelTimer2);
-            grid.Children.Add(highscoresLabel);
+
         }
 
         DispatcherTimer timer = new DispatcherTimer();
@@ -78,7 +80,7 @@ namespace Memory_Game.Classes
 
         public void ResetTimer()
         {
-            increment = 0;
+            increment = 120;
         }
 
         private int increment = 120;
