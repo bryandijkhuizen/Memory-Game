@@ -157,6 +157,7 @@ namespace Memory_Game
             //Als speler 1 aan de buurt is dan wordt er gekeken of deze punten krijgt.
             if (turn == 0)  //player 1 is dan aan de beurt
             {
+         
                 //Als er 2 kaarten zijn aangeklikt
                 if (clicks == 2)
                 {
@@ -200,11 +201,11 @@ namespace Memory_Game
 
                         dt.Interval = TimeSpan.FromSeconds(1);
                         dt.Start();
-
                         dt.Tick += (sender2, args) => {
                             dt.Stop();
                             cards[0].Source = back;
                             cards[1].Source = back;
+                            
                             cards.Clear();
                         };
                         
@@ -251,7 +252,6 @@ namespace Memory_Game
                     {
                         turn--;
                         cards[1].Source = front;
-
                         DispatcherTimer dt = new DispatcherTimer();
 
                         dt.Interval = TimeSpan.FromSeconds(1);
