@@ -60,7 +60,7 @@ namespace Memory_Game.Classes
 
 
             Loadbutton.Content = "LoadGame";
-            //Loadbutton.Click += LoadFromCSV;
+            Loadbutton.Click += LoadFromCSV;
 
 
             button.Height = 40;
@@ -91,14 +91,27 @@ namespace Memory_Game.Classes
         public void SaveToCSV(object sender, System.EventArgs e)
         {
             ListConverter lc = new ListConverter();
-            lc.Convert(finishedCards);
+            lc.Export(finishedCards);
         }
 
         public void LoadFromCSV(object sender, System.EventArgs e)
         {
             ListConverter lc = new ListConverter();
-            Console.WriteLine(lc.Import());
-            
+
+            List<Image> importList = new List<Image>();
+
+            importList = lc.Import();
+
+            finishedCards.Clear();
+
+            for(int i = 0; i < importList.Count(); i++)
+            {
+                finishedCards.Add(importList[i]);
+                Console.WriteLine(importList[i].Source);
+                Console.WriteLine(finishedCards[i].Source);
+            }
+
+
         }
 
 
