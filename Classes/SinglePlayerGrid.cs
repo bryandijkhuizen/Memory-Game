@@ -194,17 +194,21 @@ namespace Memory_Game.Classes
             card.Source = front;
             cards.Add(card);
 
+            
+
             if (clicks == 2)
             {
+                
                 clicks = 0;
                 //reset in singleplayclass
                 if (cards[0].Source.ToString() == cards[1].Source.ToString())
                 {
+
                     if (isSame(cards[0], cards[1]))
                     {
-                        MessageBox.Show("NOPE!");
-                    }
+                        clicks = 1;
 
+                    }
                     //MessageBox.Show("GOED");
                     finishedCards.Add(cards[0]);
                     finishedCards.Add(cards[1]);
