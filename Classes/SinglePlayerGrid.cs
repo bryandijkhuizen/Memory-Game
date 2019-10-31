@@ -194,24 +194,28 @@ namespace Memory_Game.Classes
             card.Source = front;
             cards.Add(card);
 
-            
-
             if (clicks == 2)
             {
                 
                 clicks = 0;
-                //reset in singleplayclass
                 if (cards[0].Source.ToString() == cards[1].Source.ToString())
                 {
 
                     if (isSame(cards[0], cards[1]))
                     {
-                        clicks = 1;
+                        clicks = 0;
+                        MessageBox.Show("You cannot click the same card");
 
+                        cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                        cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+
+                    } else
+                    {
+                        //MessageBox.Show("GOED");
+                        finishedCards.Add(cards[0]);
+                        finishedCards.Add(cards[1]);
                     }
-                    //MessageBox.Show("GOED");
-                    finishedCards.Add(cards[0]);
-                    finishedCards.Add(cards[1]);
+
                     
                     if (finishedCards.Count() == 16)
                     {
@@ -253,6 +257,7 @@ namespace Memory_Game.Classes
                         dt.Stop();
                         cards[0].Source = back;
                         cards[1].Source = back;
+                        Console.WriteLine(back);
                         cards.Clear();
                     };
                  

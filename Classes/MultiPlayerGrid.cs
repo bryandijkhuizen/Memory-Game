@@ -129,6 +129,21 @@ namespace Memory_Game
             player2.ResetScores();
         }
 
+        private Boolean isSame(Image card1, Image card2)
+        {
+            bool isTrue_;
+            if (Grid.GetRow(card1) == Grid.GetRow(card2) && Grid.GetColumn(card1) == Grid.GetColumn(card2))
+            {
+                isTrue_ = true;
+            }
+            else
+            {
+                isTrue_ = false;
+            }
+
+            return isTrue_;
+        }
+
         private void cardClick(object sender, MouseButtonEventArgs e)
         {
             Image card = (Image)sender;
@@ -150,17 +165,30 @@ namespace Memory_Game
                     //Zijn de kaarten gelijk aan elkaar?
                     if (cards[0].Source.ToString() == cards[1].Source.ToString())
                     {
-                        //Zo ja, dan wordt dit goedgerekend.
-                        //MessageBox.Show("GOED");
-                        //De 2 goedgekozen kaarten blijven omgedraaid.
-                        finishedCards.Add(cards[0]);
-                        finishedCards.Add(cards[1]);
-                        //Player 1 krijgt 1 punt voor de goedgekozen kaarten.
-                        player1.AddPoint();
-                        UpdateScores();
-                        //Player 1 krijgt nogmaals de kans om 2 kaarten te kiezen.
-                        turn = 0;
-                        //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                        if (isSame(cards[0], cards[1]))
+                        {
+                            clicks = 0;
+                            MessageBox.Show("You cannot click the same card");
+
+                            cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                            cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+
+                        }
+                        else
+                        {
+                            //Zo ja, dan wordt dit goedgerekend.
+                            //MessageBox.Show("GOED");
+                            //De 2 goedgekozen kaarten blijven omgedraaid.
+                            finishedCards.Add(cards[0]);
+                            finishedCards.Add(cards[1]);
+                            //Player 1 krijgt 1 punt voor de goedgekozen kaarten.
+                            player1.AddPoint();
+                            UpdateScores();
+                            //Player 1 krijgt nogmaals de kans om 2 kaarten te kiezen.
+                            turn = 0;
+                            //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                        }
+
                         cards.Clear();
                     }
                     else
@@ -195,15 +223,28 @@ namespace Memory_Game
                     //Zijn de kaarten gelijk aan elkaar?
                     if (cards[0].Source.ToString() == cards[1].Source.ToString())
                     {
-                        //De 2 goedgekozen kaarten blijven omgedraaid.
-                        finishedCards.Add(cards[0]);
-                        finishedCards.Add(cards[1]);
-                        //Player 2 krijgt 1 punt voor de goedgekozen kaarten.
-                        player2.AddPoint();
-                        UpdateScores();
-                        //Player 2 krijgt nogmaals de kans om 2 kaarten te kiezen.
-                        turn = 0;
-                        //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                        if (isSame(cards[0], cards[1]))
+                        {
+                            clicks = 0;
+                            MessageBox.Show("You cannot click the same card");
+
+                            cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                            cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+
+                        }
+                        else
+                        {
+                            //De 2 goedgekozen kaarten blijven omgedraaid.
+                            finishedCards.Add(cards[0]);
+                            finishedCards.Add(cards[1]);
+                            //Player 2 krijgt 1 punt voor de goedgekozen kaarten.
+                            player2.AddPoint();
+                            UpdateScores();
+                            //Player 2 krijgt nogmaals de kans om 2 kaarten te kiezen.
+                            turn = 0;
+                            //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                        }
+
                         cards.Clear();
                     }
                     else
