@@ -16,11 +16,14 @@ namespace Memory_Game
     public class MultiPlayerGrid : Grid
     {
         private Grid grid;
+        
         private int cols;
         private int rows;
         private int clicks = 0;
+        
         private List<Image> cards = new List<Image>();
         private List<Image> finishedCards = new List<Image>();
+
         Player player1;
         Player player2;
 

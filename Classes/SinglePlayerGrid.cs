@@ -167,6 +167,22 @@ namespace Memory_Game.Classes
             return images;
         }
 
+        private Boolean isSame(Image card1, Image card2)
+        {
+            bool isTrue_;
+            if (Grid.GetRow(card1) == Grid.GetRow(card2) && Grid.GetColumn(card1) == Grid.GetColumn(card2))
+            {
+                isTrue_ = true;
+            }
+            else
+            {
+                isTrue_ = false;
+            }
+
+            return isTrue_;
+        }
+
+
 
         private void cardClick(object sender, MouseButtonEventArgs e)
         {
@@ -184,6 +200,11 @@ namespace Memory_Game.Classes
                 //reset in singleplayclass
                 if (cards[0].Source.ToString() == cards[1].Source.ToString())
                 {
+                    if (isSame(cards[0], cards[1]))
+                    {
+                        MessageBox.Show("NOPE!");
+                    }
+
                     //MessageBox.Show("GOED");
                     finishedCards.Add(cards[0]);
                     finishedCards.Add(cards[1]);
