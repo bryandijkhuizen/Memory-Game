@@ -26,13 +26,15 @@
 
         </Grid>
 
+        <Grid x:Name="TimerGrid" Grid.Row="0" Grid.Column="1">
+
+        </Grid>
+
         <Grid Grid.Column="1" Grid.Row="1" x:Name="HighscoreGrid">
             
         </Grid>
 
-        <Grid x:Name="TimerGrid" Grid.Row="0" Grid.Column="1">
-            
-        </Grid>
+        
         
     </Grid>
 

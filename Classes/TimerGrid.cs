@@ -16,7 +16,7 @@ namespace Memory_Game.Classes
     public class TimerGrid : Grid
     {
         private Grid grid;
-
+        DispatcherTimer timer = new DispatcherTimer();
         Label labelTimer = new Label();
         Label labelTimer2 = new Label();
 
@@ -25,10 +25,7 @@ namespace Memory_Game.Classes
             
         }
 
-        public void start()
-        {
-            timer.Start();
-        }
+        
 
         public void init(Grid grid)
         {
@@ -65,7 +62,7 @@ namespace Memory_Game.Classes
 
         }
 
-        DispatcherTimer timer = new DispatcherTimer();
+        
 
 
         public void StopTimer()
@@ -76,6 +73,11 @@ namespace Memory_Game.Classes
         public int getTimer()
         {
             return increment;
+        }
+
+        public void start()
+        {
+            timer.Start();
         }
 
         public void ResetTimer()

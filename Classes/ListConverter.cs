@@ -32,9 +32,9 @@ namespace Memory_Game.Classes
                 
                 for (int i = 0; i < l.Count(); i++)
                 {
-                    if((l[i].Source.ToString() != null))
+                    if((l[i] != null))
                     {
-                        file.WriteLine(l[i].Source.ToString().Substring(21));
+                        file.WriteLine(l[i].Source.ToString().Substring(23));
                     }
                     
                 }

@@ -104,17 +104,33 @@ namespace Memory_Game.Classes
 
             finishedCards.Clear();
 
-            for(int i = 0; i < importList.Count(); i++)
+            for (int i = 0; i < importList.Count(); i++)
             {
                 finishedCards.Add(importList[i]);
-                Console.WriteLine(importList[i].Source);
-                Console.WriteLine(finishedCards[i].Source);
+            }
+
+ 
+            foreach (Image imagesource in finishedCards)
+            {
+                List<Image> griditems = this.grid.Children.OfType<Image>().ToList();
+
+
+                foreach (Image item in griditems)
+                {
+                    
+                   
+                            item.Source = imagesource.Source;
+               
+                    
+                }
             }
 
 
+
+
+
+           
         }
-
-
         private void InitializeGameGrid(int cols, int rows)
         {
             for (int i = 0; i < rows; i++)
@@ -137,9 +153,12 @@ namespace Memory_Game.Classes
 
         }
 
+        
+
         private void AddImages()
         {
-            List<ImageSource> images = GetImagesList();
+            List < ImageSource > images  = GetImagesList();
+            
             for (int row = 0; row < rows; row++)
             {
                 for (int column = 0; column < cols; column++)
@@ -153,6 +172,7 @@ namespace Memory_Game.Classes
                     Grid.SetColumn(backgroundImage, column);
                     Grid.SetRow(backgroundImage, row);
                     grid.Children.Add(backgroundImage);
+                    
                 }
             }
         }
