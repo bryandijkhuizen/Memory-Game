@@ -27,6 +27,11 @@ namespace Memory_Game
         Player player1;
         Player player2;
 
+        Label score1 = new Label();
+        Label score2 = new Label();
+
+        int turn = 0; // Deze zal 0 zijn als player1 speelt en 1 zijn als player2 speelt
+
         public MultiPlayerGrid(Grid grid, int cols, int rows, string playerName1, string playerName2)
         {
             this.grid = grid;
@@ -56,27 +61,6 @@ namespace Memory_Game
             grid.RowDefinitions.Add(new RowDefinition());
             grid.RowDefinitions.Add(new RowDefinition());
         }
-
-        Label score1 = new Label();
-        Label score2 = new Label();
-
-        private void UpdateScores()
-        {
-            score1.Content = player1.GetNaam() + ": " + (player1.GetScore().ToString());
-            score2.Content = player2.GetNaam() + ": " + (player2.GetScore().ToString());
-        }
-
-        private void ShowScores()
-        {
-            UpdateScores();
-
-            Grid.SetRow(score1, 4);
-            Grid.SetRow(score2, 5);
-
-            grid.Children.Add(score1);
-            grid.Children.Add(score2);
-        }
-
         private void AddImages()
         {
             List<ImageSource> images = GetImagesList();
@@ -120,33 +104,6 @@ namespace Memory_Game
             return images;
         }
 
-        int turn = 0; // Deze zal 0 zijn als player1 speelt en 1 zijn als player2 speelt
-
-        private void Reset()
-        {
-            AddImages();
-            player1.ResetScores();
-            player2.ResetScores();
-            UpdateScores();
-            finishedCards.Clear();
-        }
-
-        private Boolean isSame(Image card1, Image card2)
-        {
-            bool isTrue_;
-            if (Grid.GetRow(card1) == Grid.GetRow(card2) && Grid.GetColumn(card1) == Grid.GetColumn(card2))
-            {
-                isTrue_ = true;
-            }
-            else
-            {
-                isTrue_ = false;
-            }
-
-            return isTrue_;
-        }
-
-
         private void cardClick(object sender, MouseButtonEventArgs e)
         {
             Image card = (Image)sender;
@@ -184,7 +141,6 @@ namespace Memory_Game
                             else
                             {
                                 //Zo ja, dan wordt dit goedgerekend.
-                                //MessageBox.Show("GOED");
                                 //De 2 goedgekozen kaarten blijven omgedraaid.
                                 finishedCards.Add(cards[0]);
                                 finishedCards.Add(cards[1]);
@@ -322,6 +278,48 @@ namespace Memory_Game
 
 
         }
+
+        private Boolean isSame(Image card1, Image card2)
+        {
+            bool isTrue_;
+            if (Grid.GetRow(card1) == Grid.GetRow(card2) && Grid.GetColumn(card1) == Grid.GetColumn(card2))
+            {
+                isTrue_ = true;
+            }
+            else
+            {
+                isTrue_ = false;
+            }
+
+            return isTrue_;
+        }
+
+        private void Reset()
+        {
+            AddImages();
+            player1.ResetScores();
+            player2.ResetScores();
+            UpdateScores();
+            finishedCards.Clear();
+        }
+
+        private void UpdateScores()
+        {
+            score1.Content = player1.GetNaam() + ": " + (player1.GetScore().ToString());
+            score2.Content = player2.GetNaam() + ": " + (player2.GetScore().ToString());
+        }
+
+        private void ShowScores()
+        {
+            UpdateScores();
+
+            Grid.SetRow(score1, 4);
+            Grid.SetRow(score2, 5);
+
+            grid.Children.Add(score1);
+            grid.Children.Add(score2);
+        }
+
 
 
 

@@ -203,23 +203,6 @@ namespace Memory_Game.Classes
             return images;
         }
 
-        private Boolean isSame(Image card1, Image card2)
-        {
-            bool isTrue_;
-            if (Grid.GetRow(card1) == Grid.GetRow(card2) && Grid.GetColumn(card1) == Grid.GetColumn(card2))
-            {
-                isTrue_ = true;
-            }
-            else
-            {
-                isTrue_ = false;
-            }
-
-            return isTrue_;
-        }
-
-
-
         private void cardClick(object sender, MouseButtonEventArgs e)
         {
             Image card = (Image)sender;
@@ -252,7 +235,6 @@ namespace Memory_Game.Classes
                         }
                         else
                         {
-                            //MessageBox.Show("GOED");
                             finishedCards.Add(cards[0]);
                             finishedCards.Add(cards[1]);
                         }
@@ -302,15 +284,6 @@ namespace Memory_Game.Classes
                             Console.WriteLine(back);
                             cards.Clear();
                         };
-
-
-
-
-                        //MessageBox.Show(" ");
-
-
-
-
                     }
                 }
                 clicks = 0;
@@ -319,7 +292,20 @@ namespace Memory_Game.Classes
 
         }
 
+        private Boolean isSame(Image card1, Image card2)
+        {
+            bool isTrue_;
+            if (Grid.GetRow(card1) == Grid.GetRow(card2) && Grid.GetColumn(card1) == Grid.GetColumn(card2))
+            {
+                isTrue_ = true;
+            }
+            else
+            {
+                isTrue_ = false;
+            }
 
+            return isTrue_;
+        }
 
         private void Reset()
         {
