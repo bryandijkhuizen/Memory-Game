@@ -16,23 +16,26 @@ namespace Memory_Game.Classes
     public class TimerGrid : Grid
     {
         private Grid grid;
-        DispatcherTimer timer = new DispatcherTimer();
+
+        //Hier worden drie labels aangemaakt. Eentje voor de de content van Timer: en de tweedwe voor de aflopende timer zelf. De derde voor de higscorelabel
         Label labelTimer = new Label();
         Label labelTimer2 = new Label();
 
+        Label highscoresLabel = new Label();
+
         public TimerGrid()
         {
-            
-        }
 
-        
+        }
 
         public void init(Grid grid)
         {
+            //hier wordt de timers in de grid geplaatst en visible gemaakt. 
             this.grid = grid;
             labelTimer.Visibility = Visibility.Visible;
             labelTimer2.Visibility = Visibility.Visible;
 
+            //Elke seconde wordt dit stukje code opnieuw uitgevoerd. 
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timerTicker;
             timer.Start();
@@ -43,41 +46,53 @@ namespace Memory_Game.Classes
 
         public void LoadLabels()
         {
-           
+
+            //Hier worden de labels van hierboven gevuld. 
             labelTimer.Content = "Timer: ";
             labelTimer2.Content = increment.ToString();
+            highscoresLabel.Content = "Highscores";
 
-
+            //Dit is de opmaak van de labels. 
             labelTimer.FontSize = 42;
             labelTimer2.FontSize = 42;
+            highscoresLabel.FontSize = 42;
 
-
+            //Hier wordt bepaald waar de labels in de grid komen te staan. 
             labelTimer.VerticalContentAlignment = VerticalAlignment.Bottom;
             labelTimer2.VerticalContentAlignment = VerticalAlignment.Bottom;
+            highscoresLabel.VerticalContentAlignment = VerticalAlignment.Top;
 
             labelTimer2.Margin = new Thickness(50);
 
+            //Hier wordt de timer toegevoegd aan de grid. 
             grid.Children.Add(labelTimer);
             grid.Children.Add(labelTimer2);
-
+            grid.Children.Add(highscoresLabel);
         }
 
-        
+        DispatcherTimer timer = new DispatcherTimer();
 
-
+        //Hiermee kan de timer in singleplayer worden aangeroepen zodat hij gestopt wordt.
         public void StopTimer()
         {
             timer.Stop();
         }
 
+        //Hiermee wordt de tijd van de timer opgehaald zodat de timer aftelt in de singleplayer.
         public int getTimer()
         {
             return increment;
         }
 
-        public void start()
+        //Hier begint de timer met aftellen vanaf 120 seconden.
+        private int increment = 120;
+
+        //Hier wordt er elke seconde naar deze methode verwezen waardoor er een seconde van de timer af gaat. 
+        public void timerTicker(object sender, EventArgs e)
         {
-            timer.Start();
+            increment--;
+
+            labelTimer2.Content = increment.ToString();
         }
 
         public void ResetTimer()
@@ -85,13 +100,9 @@ namespace Memory_Game.Classes
             increment = 120;
         }
 
-        private int increment = 120;
-
-        public void timerTicker(object sender, EventArgs e)
+        public void start()
         {
-            increment--;
-
-            labelTimer2.Content = increment.ToString();
+            timer.Start();
         }
 
 

@@ -15,8 +15,7 @@ namespace Memory_Game.Classes
     public class ListConverter
     {
         private List<Image> l;
-        private List<Image> returnList = new List<Image>();
-
+        private List<string> imageSources = new List<string>();
         public ListConverter()
         {
             
@@ -25,11 +24,12 @@ namespace Memory_Game.Classes
         public void Export(List<Image> l)
         {
             this.l = l;
+            //hier wordt game.sav aangemaakt, waar de game later in wordt opgeslagen.
             System.IO.File.WriteAllBytes("game.sav", new byte[0]);
             using (System.IO.StreamWriter file =
                                 new System.IO.StreamWriter("game.sav", true))
             {
-                
+                //Voor elke plek in de lijst van l wordt de source van de afbeelding opgeschreven in de .sav file. 
                 for (int i = 0; i < l.Count(); i++)
                 {
                     if((l[i] != null))
@@ -42,19 +42,20 @@ namespace Memory_Game.Classes
             }
         }
 
-        public List<Image> Import()
+        public List<string> Import()
         {
 
             string[] lines = System.IO.File.ReadAllLines("game.sav");
 
             foreach(string line in lines)
             {
-                Image card = new Image();
-                card.Source = new BitmapImage(new Uri(line, UriKind.Relative));
-                returnList.Add(card);
+                imageSources.Add(line);
+                
             }
 
-            return returnList;
+            return imageSources;
+
+            
         }
 
        

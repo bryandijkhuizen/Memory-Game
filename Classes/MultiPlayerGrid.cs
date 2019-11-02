@@ -127,6 +127,8 @@ namespace Memory_Game
             AddImages();
             player1.ResetScores();
             player2.ResetScores();
+            UpdateScores();
+            finishedCards.Clear();
         }
 
         private Boolean isSame(Image card1, Image card2)
@@ -164,58 +166,61 @@ namespace Memory_Game
                 //Als er 2 kaarten zijn aangeklikt
                 if (clicks == 2)
                 {
+                    if(cards.Count() <= 1) { 
                     //Dan wordt de teller van kliks weer op 1 gezet
                     clicks = 0;
-                    //Zijn de kaarten gelijk aan elkaar?
-                    if (cards[0].Source.ToString() == cards[1].Source.ToString())
-                    {
-                        if (isSame(cards[0], cards[1]))
+                        //Zijn de kaarten gelijk aan elkaar?
+                        if (cards[0].Source.ToString() == cards[1].Source.ToString())
                         {
-                            clicks = 0;
-                            MessageBox.Show("You cannot click the same card");
+                            if (isSame(cards[0], cards[1]))
+                            {
+                                clicks = 0;
+                                MessageBox.Show("You cannot click the same card");
 
-                            cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
-                            cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                                cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                                cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
 
+                            }
+                            else
+                            {
+                                //Zo ja, dan wordt dit goedgerekend.
+                                //MessageBox.Show("GOED");
+                                //De 2 goedgekozen kaarten blijven omgedraaid.
+                                finishedCards.Add(cards[0]);
+                                finishedCards.Add(cards[1]);
+                                //Player 1 krijgt 1 punt voor de goedgekozen kaarten.
+                                player1.AddPoint();
+                                UpdateScores();
+                                //Player 1 krijgt nogmaals de kans om 2 kaarten te kiezen.
+                                turn = 0;
+                                //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                                score1.Background = Brushes.MistyRose;
+                                score2.Background = Brushes.White;
+                            }
+
+                            cards.Clear();
                         }
                         else
                         {
-                            //Zo ja, dan wordt dit goedgerekend.
-                            //MessageBox.Show("GOED");
-                            //De 2 goedgekozen kaarten blijven omgedraaid.
-                            finishedCards.Add(cards[0]);
-                            finishedCards.Add(cards[1]);
-                            //Player 1 krijgt 1 punt voor de goedgekozen kaarten.
-                            player1.AddPoint();
-                            UpdateScores();
-                            //Player 1 krijgt nogmaals de kans om 2 kaarten te kiezen.
-                            turn = 0;
-                            //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
-                            score1.Background = Brushes.MistyRose;
-                            score2.Background = Brushes.White;
+                            turn++;
+                            cards[1].Source = front;
+
+                            DispatcherTimer dt = new DispatcherTimer();
+
+                            dt.Interval = TimeSpan.FromSeconds(1);
+                            dt.Start();
+                            dt.Tick += (sender2, args) =>
+                            {
+                                dt.Stop();
+                                cards[0].Source = back;
+                                cards[1].Source = back;
+
+                                cards.Clear();
+
+                                score1.Background = Brushes.White;
+                                score2.Background = Brushes.Lavender;
+                            };
                         }
-
-                        cards.Clear();
-                    }
-                    else
-                    {
-                        turn++;
-                        cards[1].Source = front;
-
-                        DispatcherTimer dt = new DispatcherTimer();
-
-                        dt.Interval = TimeSpan.FromSeconds(1);
-                        dt.Start();
-                        dt.Tick += (sender2, args) => {
-                            dt.Stop();
-                            cards[0].Source = back;
-                            cards[1].Source = back;
-
-                            cards.Clear();
-
-                            score1.Background = Brushes.White;
-                            score2.Background = Brushes.Lavender;
-                        };
 
                     }
                 }
@@ -230,58 +235,61 @@ namespace Memory_Game
 
                 if (clicks == 2)
                 {
+                    if (cards.Count() <= 1) { 
 
-                    //Dan wordt de teller van kliks weer op 1 gezet
-                    clicks = 0;
+                        //Dan wordt de teller van kliks weer op 1 gezet
+                        clicks = 0;
                     //Zijn de kaarten gelijk aan elkaar?
                     score1.Background = Brushes.White;
-                    if (cards[0].Source.ToString() == cards[1].Source.ToString())
-                    {
-                        if (isSame(cards[0], cards[1]))
+                        if (cards[0].Source.ToString() == cards[1].Source.ToString())
                         {
-                            clicks = 0;
-                            MessageBox.Show("You cannot click the same card");
+                            if (isSame(cards[0], cards[1]))
+                            {
+                                clicks = 0;
+                                MessageBox.Show("You cannot click the same card");
 
-                            cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
-                            cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                                cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                                cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
 
+                            }
+                            else
+                            {
+                                //De 2 goedgekozen kaarten blijven omgedraaid.
+                                finishedCards.Add(cards[0]);
+                                finishedCards.Add(cards[1]);
+                                //Player 2 krijgt 1 punt voor de goedgekozen kaarten.
+                                player2.AddPoint();
+                                UpdateScores();
+                                //Player 2 krijgt nogmaals de kans om 2 kaarten te kiezen.
+                                turn = 1;
+                                //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
+                                score2.Background = Brushes.Lavender;
+                                score1.Background = Brushes.White;
+                            }
+
+                            cards.Clear();
                         }
                         else
                         {
-                            //De 2 goedgekozen kaarten blijven omgedraaid.
-                            finishedCards.Add(cards[0]);
-                            finishedCards.Add(cards[1]);
-                            //Player 2 krijgt 1 punt voor de goedgekozen kaarten.
-                            player2.AddPoint();
-                            UpdateScores();
-                            //Player 2 krijgt nogmaals de kans om 2 kaarten te kiezen.
-                            turn = 1;
-                            //Cache is leeg. Speler kan weer beginnen met 2 nieuwe kaarten te kiezen
-                            score2.Background = Brushes.Lavender;
-                            score1.Background = Brushes.White;
+                            turn--;
+                            cards[1].Source = front;
+                            DispatcherTimer dt = new DispatcherTimer();
+
+                            dt.Interval = TimeSpan.FromSeconds(1);
+                            dt.Start();
+
+                            dt.Tick += (sender2, args) =>
+                            {
+                                dt.Stop();
+                                cards[0].Source = back;
+                                cards[1].Source = back;
+
+                                score2.Background = Brushes.White;
+                                score1.Background = Brushes.MistyRose;
+
+                                cards.Clear();
+                            };
                         }
-
-                        cards.Clear();
-                    }
-                    else
-                    {
-                        turn--;
-                        cards[1].Source = front;
-                        DispatcherTimer dt = new DispatcherTimer();
-
-                        dt.Interval = TimeSpan.FromSeconds(1);
-                        dt.Start();
-
-                        dt.Tick += (sender2, args) => {
-                            dt.Stop();
-                            cards[0].Source = back;
-                            cards[1].Source = back;
-
-                            score2.Background = Brushes.White;
-                            score1.Background = Brushes.MistyRose;
-
-                            cards.Clear();
-                        };
                     }
                 }
             }

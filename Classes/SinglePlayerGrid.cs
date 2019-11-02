@@ -98,37 +98,40 @@ namespace Memory_Game.Classes
         {
             ListConverter lc = new ListConverter();
 
-            List<Image> importList = new List<Image>();
-
-            importList = lc.Import();
-
             finishedCards.Clear();
 
-            for (int i = 0; i < importList.Count(); i++)
+            foreach(string line in lc.Import())
             {
-                finishedCards.Add(importList[i]);
+                Image image = new Image();
+                image.Tag = new BitmapImage(new Uri(line, UriKind.Relative));
+                finishedCards.Add(image);
+
+
+                
             }
 
- 
-            foreach (Image imagesource in finishedCards)
-            {
-                List<Image> griditems = this.grid.Children.OfType<Image>().ToList();
+            List<Image> griditems = this.grid.Children.OfType<Image>().ToList();
 
+            foreach(Image fitem in finishedCards)
+            {
+                Console.WriteLine("finished: " + fitem.Tag.ToString());
 
                 foreach (Image item in griditems)
                 {
+                    string imageString = item.Tag.ToString();
+
                     
-                   
-                            item.Source = imagesource.Source;
-               
-                    
+
+                    if(fitem.Tag.ToString() == item.Tag.ToString())
+                    {
+                        Console.WriteLine("grid: " + item.Tag.ToString());
+                        item.Source = new BitmapImage(new Uri(item.Tag.ToString(), UriKind.Relative));
+                    }
                 }
+
             }
 
-
-
-
-
+            
            
         }
         private void InitializeGameGrid(int cols, int rows)
@@ -229,80 +232,89 @@ namespace Memory_Game.Classes
 
             if (clicks == 2)
             {
-                
-                clicks = 0;
-                if (cards[0].Source.ToString() == cards[1].Source.ToString())
+                if(cards.Count() <= 1)
                 {
 
-                    if (isSame(cards[0], cards[1]))
+          
+                } else
+                {
+                    if (cards[0].Source.ToString() == cards[1].Source.ToString())
                     {
-                        clicks = 0;
-                        MessageBox.Show("You cannot click the same card");
 
-                        cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
-                        cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
-
-                    } else
-                    {
-                        //MessageBox.Show("GOED");
-                        finishedCards.Add(cards[0]);
-                        finishedCards.Add(cards[1]);
-                    }
-
-                    
-                    if (finishedCards.Count() == 16)
-                    {
+                        if (isSame(cards[0], cards[1]))
                         {
-                            timer.StopTimer();
-                            int score = (timer.getTimer());
+                            clicks = 0;
+                            MessageBox.Show("You cannot click the same card");
 
-                            scores.Add(playerName1, score);
-                            String csv = String.Join(
-                            Environment.NewLine,
-                            scores.Select(d => $"{d.Key};{d.Value};"));
-
-                            using (System.IO.StreamWriter file =
-                                new System.IO.StreamWriter("scores.csv", true))
-                            {
-                                file.WriteLine(csv);
-                            }
+                            cards[0].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
+                            cards[1].Source = new BitmapImage(new Uri("images/mystery_image.jpg", UriKind.Relative));
 
                         }
+                        else
+                        {
+                            //MessageBox.Show("GOED");
+                            finishedCards.Add(cards[0]);
+                            finishedCards.Add(cards[1]);
+                        }
+
+
+                        if (finishedCards.Count() == 16)
+                        {
+                            {
+                                timer.StopTimer();
+                                int score = (timer.getTimer());
+
+                                scores.Add(playerName1, score);
+                                String csv = String.Join(
+                                Environment.NewLine,
+                                scores.Select(d => $"{d.Key};{d.Value};"));
+
+                                using (System.IO.StreamWriter file =
+                                    new System.IO.StreamWriter("scores.csv", true))
+                                {
+                                    file.WriteLine(csv);
+                                }
+                                Reset();
+
+                            }
                             for (int i = 0; i < finishedCards.Count(); i++)
                             {
                                 finishedCards[i].Source = back;
-                                Reset();
+                                
                             }
-                       
-                    }
-                    cards.Clear();
-                }
-                else
-                {
-                    cards[1].Source = front;
 
-                    DispatcherTimer dt = new DispatcherTimer();
-
-                    dt.Interval = TimeSpan.FromSeconds(1);
-                    dt.Start();
-
-                    dt.Tick += (sender2, args) => {
-                        dt.Stop();
-                        cards[0].Source = back;
-                        cards[1].Source = back;
-                        Console.WriteLine(back);
+                        }
                         cards.Clear();
-                    };
-                 
+                    }
+                    else
+                    {
+                        cards[1].Source = front;
 
-                    
+                        DispatcherTimer dt = new DispatcherTimer();
 
-                    //MessageBox.Show(" ");
+                        dt.Interval = TimeSpan.FromSeconds(0.5);
+                        dt.Start();
 
-                   
+                        dt.Tick += (sender2, args) => {
+                            dt.Stop();
+                            cards[0].Source = back;
+                            cards[1].Source = back;
+                            Console.WriteLine(back);
+                            cards.Clear();
+                        };
 
-                    
+
+
+
+                        //MessageBox.Show(" ");
+
+
+
+
+                    }
                 }
+                clicks = 0;
+               
             }
 
         }
