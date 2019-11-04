@@ -248,7 +248,7 @@ namespace Memory_Game.Classes
                                 {
                                     file.WriteLine(csv);
                                 }
-                                Reset();
+                                System.Environment.Exit(0);
 
                             }
                             for (int i = 0; i < finishedCards.Count(); i++)

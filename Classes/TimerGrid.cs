@@ -89,6 +89,12 @@ namespace Memory_Game.Classes
             increment--;
 
             labelTimer2.Content = increment.ToString();
+
+            if(increment <= 0)
+            {
+                MessageBox.Show("You Lost");
+                System.Environment.Exit(0);
+            }
         }
 
         public void ResetTimer()
