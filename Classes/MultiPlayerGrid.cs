@@ -186,11 +186,11 @@ namespace Memory_Game
             //Als de turn teller op 0 staat is speler 1 aan de beurt
             if (turn == 0)
             {
-
+                score1.Background = Brushes.MistyRose;
                 //Als er 2 kaarten zijn aangeklikt
                 if (clicks == 2)
                 {
-                    //Dan wordt de teller van kliks weer op 1 gezet
+                    //Dan wordt de teller van kliks weer op 0 gezet
                     clicks = 0;
                     //Als de kaarten foto's gelijk aan elkaar?
                     if (cards[0].Source.ToString() == cards[1].Source.ToString())
@@ -221,6 +221,9 @@ namespace Memory_Game
                             UpdateScores();
                             //dan krijgt player1 nogmaals de kans om 2 kaarten te kiezen.
                             turn = 0;
+                            //Speler 1 blijft roze en speler 2 blijft wit
+                            score1.Background = Brushes.MistyRose;
+                            score2.Background = Brushes.White;
                         }
                         //Lijst "cards" wordt geleegd
                         cards.Clear();
@@ -248,6 +251,10 @@ namespace Memory_Game
                             cards[1].Source = back;
                             //Dan wordt de lijst "cards" geleegd
                             cards.Clear();
+                            //De beurt van speler 1 wordt wit en speler 2 wordt paars.
+                            score2.Background = Brushes.Lavender;
+                            score1.Background = Brushes.White;
+
                         };
                     }
                 }
@@ -255,9 +262,12 @@ namespace Memory_Game
             //Als de turn teller op 1 staat is speler 2 aan de beurt
             if (turn == 1)
             {
+                score2.Background = Brushes.Lavender;
                 //Als er 2 kaarten zijn aangeklikt
                 if (clicks == 2)
                 {
+                    score2.Background = Brushes.Lavender;
+                    score1.Background = Brushes.White;
                     //Dan wordt de teller van kliks weer op 1 gezet
                     clicks = 0;
                     //Zijn de kaarten gelijk aan elkaar?
@@ -265,6 +275,8 @@ namespace Memory_Game
                     {
                         if (isSame(cards[0], cards[1]))
                         {
+                            score2.Background = Brushes.Lavender;
+                            score1.Background = Brushes.White;
                             //Dan gaat de klik teller terug naar 0
                             clicks = 0;
                             //Dan krijgt speler een pop-up bericht dat dit geen mogelijke speel optie is
@@ -282,17 +294,23 @@ namespace Memory_Game
                             finishedCards.Add(cards[0]);
                             finishedCards.Add(cards[1]);
                             //Dan krijgt player1 1 punt voor de goed gekozen kaarten.
-                            player1.AddPoint();
+                            player2.AddPoint();
                             //Dan wordt het score label vernieuwd
                             UpdateScores();
                             //dan krijgt player1 nogmaals de kans om 2 kaarten te kiezen.
-                            turn = 0;
+                            turn = 1;
+                            //Speler 1 blijft wit en speler 2 blijft paars
+                            score2.Background = Brushes.Lavender;
+                            score1.Background = Brushes.White;
                         }
                         //Dan wordt de lijst "cards" geleegd
                         cards.Clear();
                     }
                     else
                     {
+                        //speler 2 wordt wit en speler 1 wordt roze. 
+                        score2.Background = Brushes.White;
+                        score1.Background = Brushes.MistyRose;
                         //Dan wordt de "voorkan" van gekozen kaart 2 weergegeven
                         cards[1].Source = front;
                         //Dan gaat de beurt naar Speler 1

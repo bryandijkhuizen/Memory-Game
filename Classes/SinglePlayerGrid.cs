@@ -19,7 +19,6 @@ namespace Memory_Game.Classes
 
         private Dictionary<string, int> scores = new Dictionary<string, int>();
 
-
         private int cols;
         private int rows;
         private int clicks = 0;
@@ -117,7 +116,7 @@ namespace Memory_Game.Classes
                 {
                     if(fitem.Tag.ToString() == item.Tag.ToString())
                     {
-                        item.Source = new BitmapImage(new Uri(item.Tag.ToString(), UriKind.Relative));
+                        item.Source = null;
                     }
                 }
 
@@ -229,6 +228,9 @@ namespace Memory_Game.Classes
                         {
                             finishedCards.Add(cards[0]);
                             finishedCards.Add(cards[1]);
+
+                            cards[0].Source = null;
+                            cards[1].Source = null;
                         }
 
 
