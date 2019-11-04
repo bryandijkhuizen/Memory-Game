@@ -27,6 +27,10 @@ namespace Memory_Game
         bool isSet_ = false;
         TimerGrid timer = new TimerGrid();
 
+        Button single = new Button();
+        Button multi = new Button();
+        Button main = new Button();
+
         public NavBarGrid(Grid grid, Grid GameGrid, Grid TimerGrid)
         {
             this.grid = grid;
@@ -48,11 +52,11 @@ namespace Memory_Game
 
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
+            //grid.ColumnDefinitions.Add(new ColumnDefinition());
 
         }
         
-        Button single = new Button();
-        Button multi = new Button();
+
         private void LoadButtons()
         {
             
@@ -70,6 +74,19 @@ namespace Memory_Game
             Grid.SetRow(multi, 0);
             grid.Children.Add(multi);
 
+            main.Content = "Main Menu";
+            main.FontSize = 42;
+            main.Click += MainClick;
+            Grid.SetColumn(main, 2);
+            Grid.SetRow(main, 0);
+            //grid.Children.Add(main);
+
+
+        }
+
+        private void MainClick(object sender, RoutedEventArgs e)
+        {
+            GameGrid = new MainMenuGrid(GameGrid);
         }
 
         private void LoadTextBoxes()
@@ -93,9 +110,6 @@ namespace Memory_Game
                 GameGrid = new SinglePlayerGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, enterPlayerName.Text,TimerGrid);
                 enterPlayerName.Visibility = Visibility.Hidden;
                 enterPlayerName2.Visibility = Visibility.Hidden;
-                multi.Visibility = Visibility.Hidden;
-                grid.ColumnDefinitions.RemoveAt(1);
-                single.HorizontalAlignment = HorizontalAlignment.Center;
                 isSet_ = true;
             }
             else
@@ -112,9 +126,6 @@ namespace Memory_Game
                 GameGrid = new MultiPlayerGrid(GameGrid, NR_OF_COLUMNS, NR_OF_ROWS, enterPlayerName.Text, enterPlayerName2.Text);
                 enterPlayerName.Visibility = Visibility.Hidden;
                 enterPlayerName2.Visibility = Visibility.Hidden;
-                single.Visibility = Visibility.Hidden;
-                grid.ColumnDefinitions.RemoveAt(0);
-                multi.HorizontalContentAlignment = HorizontalAlignment.Center;
                 isSet_ = true;
             }
             else

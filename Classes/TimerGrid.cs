@@ -50,24 +50,20 @@ namespace Memory_Game.Classes
             //Hier worden de labels van hierboven gevuld. 
             labelTimer.Content = "Timer: ";
             labelTimer2.Content = increment.ToString();
-            highscoresLabel.Content = "Highscores";
 
             //Dit is de opmaak van de labels. 
             labelTimer.FontSize = 42;
             labelTimer2.FontSize = 42;
-            highscoresLabel.FontSize = 42;
 
             //Hier wordt bepaald waar de labels in de grid komen te staan. 
             labelTimer.VerticalContentAlignment = VerticalAlignment.Bottom;
             labelTimer2.VerticalContentAlignment = VerticalAlignment.Bottom;
-            highscoresLabel.VerticalContentAlignment = VerticalAlignment.Top;
 
             labelTimer2.Margin = new Thickness(50);
 
             //Hier wordt de timer toegevoegd aan de grid. 
             grid.Children.Add(labelTimer);
             grid.Children.Add(labelTimer2);
-            grid.Children.Add(highscoresLabel);
         }
 
         DispatcherTimer timer = new DispatcherTimer();

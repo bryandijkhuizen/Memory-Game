@@ -104,10 +104,7 @@ namespace Memory_Game.Classes
             {
                 Image image = new Image();
                 image.Tag = new BitmapImage(new Uri(line, UriKind.Relative));
-                finishedCards.Add(image);
-
-
-                
+                finishedCards.Add(image);       
             }
 
             List<Image> griditems = this.grid.Children.OfType<Image>().ToList();
@@ -118,13 +115,8 @@ namespace Memory_Game.Classes
 
                 foreach (Image item in griditems)
                 {
-                    string imageString = item.Tag.ToString();
-
-                    
-
                     if(fitem.Tag.ToString() == item.Tag.ToString())
                     {
-                        Console.WriteLine("grid: " + item.Tag.ToString());
                         item.Source = new BitmapImage(new Uri(item.Tag.ToString(), UriKind.Relative));
                     }
                 }
